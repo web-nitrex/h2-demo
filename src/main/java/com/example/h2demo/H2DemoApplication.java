@@ -20,7 +20,6 @@ public class H2DemoApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(H2DemoApplication.class, args);
-
         commandAnalyzer.run();
 
     }
