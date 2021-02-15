@@ -20,7 +20,7 @@ public class AuthorJdbcDAO implements DAO<Author>{
 
     RowMapper<Author> rowMapper = (rs,rowNum)->{
         Author author = new Author();
-        author.setId(rs.getInt("id"));
+        author.setId(rs.getLong("id"));
         author.setFirstName(rs.getString("first_name"));
         author.setLastName(rs.getString("last_name"));
         return author;
@@ -45,7 +45,7 @@ public class AuthorJdbcDAO implements DAO<Author>{
     }
 
     @Override
-    public Optional get(int id) {
+    public Optional get(long id) {
         String sql = "SELECT * FROM AUTHORS WHERE id = ?";
         Author author = null;
         try {
@@ -58,7 +58,7 @@ public class AuthorJdbcDAO implements DAO<Author>{
     }
 
     @Override
-    public void update(Author author, int id) {
+    public void update(Author author, long id) {
         String sql = "UPDATE AUTHORS SET first_name=?, last_name=? WHERE id=?";
         int update = jdbcTemplate.update(sql,author.getFirstName(),author.getLastName(),id);
         if(update==1)
@@ -66,7 +66,7 @@ public class AuthorJdbcDAO implements DAO<Author>{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         int delete = jdbcTemplate.update("DELETE FROM AUTHORS WHERE id=?",id);
 
         if(delete==1)

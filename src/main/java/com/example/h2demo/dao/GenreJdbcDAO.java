@@ -21,7 +21,7 @@ public class GenreJdbcDAO implements DAO<Genre>{
 
     RowMapper<Genre> rowMapper = (rs, rowNum)->{
         Genre genre = new Genre();
-        genre.setId(rs.getInt("id"));
+        genre.setId(rs.getLong("id"));
         genre.setNameGenre(rs.getString("genre"));
         return genre;
     };
@@ -45,7 +45,7 @@ public class GenreJdbcDAO implements DAO<Genre>{
     }
 
     @Override
-    public Optional<Genre> get(int id) {
+    public Optional<Genre> get(long id) {
         String sql = "SELECT * FROM GENRE WHERE id = ?";
         Genre genre = null;
         try {
@@ -58,7 +58,7 @@ public class GenreJdbcDAO implements DAO<Genre>{
     }
 
     @Override
-    public void update(Genre genre, int id) {
+    public void update(Genre genre, long id) {
         String sql = "UPDATE GENRE SET genre=? WHERE id=?";
         int update = jdbcTemplate.update(sql,genre.getNameGenre(), id);
         if(update==1)
@@ -66,7 +66,7 @@ public class GenreJdbcDAO implements DAO<Genre>{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         int delete = jdbcTemplate.update("DELETE FROM GENRE WHERE id=?",id);
 
         if(delete==1)
