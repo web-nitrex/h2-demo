@@ -31,7 +31,7 @@ public class AuthorJdbcDAO implements DAO<Author>{
     }
 
     @Override
-    public List list() {
+    public List<Author> list() {
         String sql = "SELECT * FROM AUTHORS";
         return jdbcTemplate.query(sql, rowMapper);
     }
@@ -41,7 +41,7 @@ public class AuthorJdbcDAO implements DAO<Author>{
         String sql = "INSERT INTO AUTHORS (first_name, last_name) VALUES(?, ?)";
         int insert = jdbcTemplate.update(sql,author.getFirstName(),author.getLastName());
         if(insert==1)
-            log.info("New author author created: {}", author);
+            log.info("New author created: {}", author);
     }
 
     @Override

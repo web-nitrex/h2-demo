@@ -1,7 +1,7 @@
 package com.example.h2demo.models;
 
 public class Author {
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
 
@@ -26,7 +26,7 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

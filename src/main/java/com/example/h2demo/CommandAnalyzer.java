@@ -2,6 +2,7 @@ package com.example.h2demo;
 
 import com.example.h2demo.dao.DAO;
 import com.example.h2demo.models.Author;
+import com.example.h2demo.models.Genre;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,11 +11,16 @@ import java.util.Scanner;
 
 @Component
 public class CommandAnalyzer {
-    private DAO<Author> daoAuthor;
+
+    private DAO<Author> authorDAO;
+    private DAO<Genre> genreDAO;
+
     private Scanner in = new Scanner(System.in);
 
-    public CommandAnalyzer(DAO<Author> daoAuthor) {
-        this.daoAuthor=daoAuthor;
+    public CommandAnalyzer(DAO<Author> authorDAO, DAO<Genre> genreDAO)
+    {
+        this.authorDAO=authorDAO;
+        this.genreDAO=genreDAO;
     }
 
     public  void analyzeCommandForAuthors()
@@ -30,14 +36,14 @@ public class CommandAnalyzer {
             String lastName = in.next();
 
             Author author = new Author(firstName,lastName);
-            daoAuthor.create(author);
+            authorDAO.create(author);
 
         }else if(commandAuthors.equals("READ"))
         {
             System.out.println("Enter author id:");
             int id = in.nextInt();
             System.out.println("Author: ");
-            Optional<Author> firstOne = daoAuthor.get(id);
+            Optional<Author> firstOne = authorDAO.get(id);
 
             if(firstOne.isPresent())
                 System.out.println(firstOne.get());
@@ -47,14 +53,14 @@ public class CommandAnalyzer {
         }else if(commandAuthors.equals("READ_ALL"))
         {
             System.out.println("All authors: \n");
-            List<Author> authors = daoAuthor.list();
+            List<Author> authors = authorDAO.list();
             authors.forEach(System.out::println);
 
         }else if(commandAuthors.equals("DELETE"))
         {
             System.out.println("Enter author id:");
             int id = in.nextInt();
-            daoAuthor.delete(id);
+            authorDAO.delete(id);
 
         }else if (commandAuthors.equals("UPDATE")){
             System.out.println("Enter author id:");
@@ -65,11 +71,61 @@ public class CommandAnalyzer {
             String lastName = in.next();
 
             Author author = new Author(firstName,lastName);
-            daoAuthor.update(author,id);
+            authorDAO.update(author,id);
         }else {
             System.out.println("Command not found!!!");
         }
 
+    }
+
+    public void analyzeCommandForGenre()
+    {
+        System.out.println("Enter command (CREATE, READ, READ_ALL, UPDATE, DELETE):");
+        String commandGenre = in.next();
+
+        if(commandGenre.equals("CREATE"))
+        {
+            System.out.println("Enter genre name:");
+            String genreName = in.next();
+
+            Genre genre = new Genre(genreName);
+            genreDAO.create(genre);
+
+        }else if(commandGenre.equals("READ"))
+        {
+            System.out.println("Enter genre id:");
+            int id = in.nextInt();
+            System.out.println("Genre: ");
+            Optional<Genre> firstOne = genreDAO.get(id);
+
+            if(firstOne.isPresent())
+                System.out.println(firstOne.get());
+            else
+                System.out.println("Genre not found!");
+
+        }else if(commandGenre.equals("READ_ALL"))
+        {
+            System.out.println("All genres: \n");
+            List<Genre> genres = genreDAO.list();
+            genres.forEach(System.out::println);
+
+        }else if(commandGenre.equals("DELETE"))
+        {
+            System.out.println("Enter genre id:");
+            int id = in.nextInt();
+            genreDAO.delete(id);
+
+        }else if (commandGenre.equals("UPDATE")){
+            System.out.println("Enter genre id:");
+            int id = in.nextInt();
+            System.out.println("Enter genre name:");
+            String genreName = in.next();
+
+            Genre genre = new Genre(genreName);
+            genreDAO.update(genre,id);
+        }else {
+            System.out.println("Command not found!!!");
+        }
     }
 
     public void run()
@@ -83,9 +139,12 @@ public class CommandAnalyzer {
             {
                 analyzeCommandForAuthors();
             }
+            else if(command.equals("GENRE"))
+            {
+                analyzeCommandForGenre();
+            }
             else {
-                if(!command.equals(""))
-                    System.out.println("Table not found!");
+                System.out.println("Table not found!");
             }
 
         }
