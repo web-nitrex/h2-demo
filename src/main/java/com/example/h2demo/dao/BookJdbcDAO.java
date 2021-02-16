@@ -6,12 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 public class BookJdbcDAO implements DAO<Book> {
 
     private static final Logger log = LoggerFactory.getLogger(BookJdbcDAO.class);

@@ -6,14 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
+@Repository
 public class AuthorJdbcDAO implements DAO<Author>{
 
     private static final Logger log = LoggerFactory.getLogger(AuthorJdbcDAO.class);
