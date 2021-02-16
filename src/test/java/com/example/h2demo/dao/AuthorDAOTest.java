@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
@@ -12,13 +14,13 @@ import java.util.List;
 @DataJdbcTest
 public class AuthorDAOTest {
 
-    private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcOperations jdbc;
     private AuthorJdbcDAO authorDAO;
 
     @Autowired
-    public AuthorDAOTest(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.authorDAO = new AuthorJdbcDAO(jdbcTemplate);
+    public AuthorDAOTest(NamedParameterJdbcOperations jdbc) {
+        this.jdbc = jdbc;
+        this.authorDAO = new AuthorJdbcDAO(jdbc);
     }
 
     @Test
