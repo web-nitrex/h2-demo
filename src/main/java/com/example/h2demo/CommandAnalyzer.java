@@ -4,6 +4,7 @@ import com.example.h2demo.dao.DAO;
 import com.example.h2demo.models.Author;
 import com.example.h2demo.models.Book;
 import com.example.h2demo.models.Genre;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Component
-public class CommandAnalyzer {
+public class CommandAnalyzer implements CommandLineRunner {
 
     private final DAO<Author> authorDAO;
     private final DAO<Genre> genreDAO;
@@ -227,8 +228,36 @@ public class CommandAnalyzer {
 
     }
 
-    public void run()
-    {
+//    public void run()
+//    {
+//        while (true)
+//        {
+//            System.out.println("<==========================================================>\n");
+//            System.out.println("Enter table name :");
+//            String command = in.next();
+//
+//            if(command.equals("AUTHORS"))
+//            {
+//                analyzeCommandForAuthors();
+//            }
+//            else if(command.equals("GENRE"))
+//            {
+//                analyzeCommandForGenre();
+//            }
+//            else if(command.equals("BOOKS"))
+//            {
+//                analyzeCommandForBooks();
+//            }
+//            else {
+//                System.out.println("Table not found!");
+//            }
+//
+//        }
+//
+//    }
+
+    @Override
+    public void run(String... args) throws Exception {
         while (true)
         {
             System.out.println("<==========================================================>\n");
@@ -252,6 +281,5 @@ public class CommandAnalyzer {
             }
 
         }
-
     }
 }
